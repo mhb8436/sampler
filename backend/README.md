@@ -38,7 +38,7 @@ backend/
 ## API 개요
 
 - 인증: `/auth/signup`, `/auth/login`
-- 게시판: `/board/posts` (CRUD), `/board/posts/:id/answers`
+- 게시판: `/posts/posts` (CRUD), `/posts/posts/:id/answers`
 - 채팅: `/chat/rooms`, `/chat/rooms/:roomId/messages` (REST), 실시간 메시지(Socket.IO)
 
 ---
