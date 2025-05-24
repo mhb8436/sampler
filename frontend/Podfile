@@ -1,0 +1,11 @@
+platform :ios, '15.0'
+use_frameworks!
+
+target 'frontendApp' do
+  # 네트워킹 (REST API)
+  pod 'Alamofire', '~> 5.7'
+
+  # 실시간 통신 (Socket.IO)
+  pod 'Socket.IO-Client-Swift', '~> 16.0'
+end
+
