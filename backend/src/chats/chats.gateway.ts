@@ -34,6 +34,7 @@ export class ChatsGateway
 
   // 메시지 브로드캐스팅을 위한 메서드
   broadcastMessage(roomId: number, message: any) {
+    console.log("boardcastMessage ", message);
     this.server.to(`room_${roomId}`).emit('message', message);
   }
 
@@ -76,10 +77,15 @@ export class ChatsGateway
     @ConnectedSocket() client: Socket,
     @MessageBody() data: { chatRoomId: number },
   ) {
-    client.join(`room_${data.chatRoomId}`);
-    await this.chatsService.joinRoom(data.chatRoomId, (client as any).user.sub);
+    const parsedData = typeof data === 'string' ? JSON.parse(data) : data;
+    const chatRoomId = parsedData.chatRoomId;
+    
+    console.log("joinRoom", parsedData, chatRoomId, (client as any).user);
+
+    client.join(`room_${chatRoomId}`);
+    await this.chatsService.joinRoom((client as any).user.sub, chatRoomId);
     client
-      .to(`room_${data.chatRoomId}`)
+      .to(`room_${chatRoomId}`)
       .emit('notice', `${(client as any).user.nickname}님이 입장했습니다.`);
   }
 
@@ -89,10 +95,12 @@ export class ChatsGateway
     @ConnectedSocket() client: Socket,
     @MessageBody() data: { chatRoomId: number },
   ) {
-    client.leave(`room_${data.chatRoomId}`);
-    await this.chatsService.leaveRoom(data.chatRoomId, (client as any).user.id);
+    const parsedData = typeof data === 'string' ? JSON.parse(data) : data;
+    const chatRoomId = parsedData.chatRoomId;
+    client.leave(`room_${chatRoomId}`);
+    await this.chatsService.leaveRoom(chatRoomId, (client as any).user.sub);
     client
-      .to(`room_${data.chatRoomId}`)
+      .to(`room_${chatRoomId}`)
       .emit('notice', `${(client as any).user.nickname}님이 퇴장했습니다.`);
   }
 

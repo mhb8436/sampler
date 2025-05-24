@@ -71,17 +71,25 @@ export class ChatsService {
 
   // 채팅방 입장
   async joinRoom(userId: number, roomId: number) {
+    console.log("joinRoom ", userId, roomId);
     return this.prisma.chatRoom.update({
       where: { id: roomId },
-      data: { users: { connect: { id: userId } } },
+      data: { users: { connect: [{ id: userId }] } },
     });
   }
 
   // 채팅방 퇴장
   async leaveRoom(userId: number, roomId: number) {
+    const room = await this.prisma.chatRoom.findUnique({
+      where: { id: roomId },
+      include: { users: true },
+    });
+    if (!room) throw new Error('채팅방이 존재하지 않습니다.');
+    const isJoined = room.users.some(user => user.id === userId);
+    if (!isJoined) throw new Error('이미 퇴장한 사용자입니다.');
     return this.prisma.chatRoom.update({
       where: { id: roomId },
-      data: { users: { disconnect: { id: userId } } },
+      data: { users: { disconnect: [{ id: userId }] } },
     });
   }
 }

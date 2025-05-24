@@ -16,6 +16,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { UpdateAnswerDto } from './dto/update-answer.dto';
 import { CreateAnswerDto } from './dto/create-answer.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { PostEntity } from './entities/post.entity';
 
 @Controller('posts')
 @ApiTags('posts')
@@ -27,21 +28,24 @@ export class PostsController {
   @Post('posts')
   @ApiOperation({ summary: '게시글 생성' })
   async createPost(@Request() req, @Body() dto: CreatePostDto) {
-    return this.postsService.createPost(req.user.userId, dto);
+    const post = await this.postsService.createPost(req.user.id, dto);
+    return new PostEntity(post)
   }
 
   // 전체 게시글 조회
   @Get('posts')
   @ApiOperation({ summary: '전체 게시글 조회' })
   async getPosts() {
-    return this.postsService.getPosts();
+    const posts = await  this.postsService.getPosts();
+    return posts.map(post => new PostEntity(post));
   }
 
   // 단일 게시글 조회
   @Get('posts/:id')
   @ApiOperation({ summary: '단일 게시글 조회' })
   async getPostById(@Param('id') id: string) {
-    return this.postsService.getPostById(Number(id));
+    const post = await this.postsService.getPostById(Number(id));
+    return new PostEntity(post || {});
   }
 
   // 게시글 수정
@@ -53,7 +57,8 @@ export class PostsController {
     @Param('id') id: string,
     @Body() dto: UpdatePostDto,
   ) {
-    return this.postsService.updatePost(Number(id), req.user.userId, dto);
+    const post = await this.postsService.updatePost(Number(id), req.user.id, dto);
+    return new PostEntity(post || {});
   }
 
   // 게시글 삭제
@@ -61,7 +66,7 @@ export class PostsController {
   @Delete('posts/:id')
   @ApiOperation({ summary: '게시글 삭제' })
   async deletePost(@Request() req, @Param('id') id: string) {
-    return this.postsService.deletePost(Number(id), req.user.userId);
+    return this.postsService.deletePost(Number(id), req.user.id);
   }
 
   // 답변 작성
@@ -73,7 +78,7 @@ export class PostsController {
     @Param('postId') postId: string,
     @Body() dto: CreateAnswerDto,
   ) {
-    return this.postsService.createAnswer(req.user.userId, Number(postId), dto);
+    return this.postsService.createAnswer(req.user.id, Number(postId), dto);
   }
 
   // 게시글별 답변 조회
@@ -92,7 +97,7 @@ export class PostsController {
     @Param('id') id: string,
     @Body() dto: UpdateAnswerDto,
   ) {
-    return this.postsService.updateAnswer(Number(id), req.user.userId, dto);
+    return this.postsService.updateAnswer(Number(id), req.user.id, dto);
   }
 
   // 답변 삭제
@@ -100,6 +105,6 @@ export class PostsController {
   @Delete('answers/:id')
   @ApiOperation({ summary: '답변 삭제' })
   async deleteAnswer(@Request() req, @Param('id') id: string) {
-    return this.postsService.deleteAnswer(Number(id), req.user.userId);
+    return this.postsService.deleteAnswer(Number(id), req.user.id);
   }
 }

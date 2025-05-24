@@ -2,7 +2,7 @@
 //  frontendUITestsLaunchTests.swift
 //  frontendUITests
 //
-//  Created by JI HOON LEE on 5/23/25.
+//  Created by mhb8436 on 2025/05/24.
 //
 
 import XCTest
@@ -17,7 +17,6 @@ final class frontendUITestsLaunchTests: XCTestCase {
         continueAfterFailure = false
     }
 
-    @MainActor
     func testLaunch() throws {
         let app = XCUIApplication()
         app.launch()

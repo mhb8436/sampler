@@ -21,37 +21,42 @@ const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const update_answer_dto_1 = require("./dto/update-answer.dto");
 const create_answer_dto_1 = require("./dto/create-answer.dto");
 const swagger_1 = require("@nestjs/swagger");
+const post_entity_1 = require("./entities/post.entity");
 let PostsController = class PostsController {
     postsService;
     constructor(postsService) {
         this.postsService = postsService;
     }
     async createPost(req, dto) {
-        return this.postsService.createPost(req.user.userId, dto);
+        const post = await this.postsService.createPost(req.user.id, dto);
+        return new post_entity_1.PostEntity(post);
     }
     async getPosts() {
-        return this.postsService.getPosts();
+        const posts = await this.postsService.getPosts();
+        return posts.map(post => new post_entity_1.PostEntity(post));
     }
     async getPostById(id) {
-        return this.postsService.getPostById(Number(id));
+        const post = await this.postsService.getPostById(Number(id));
+        return new post_entity_1.PostEntity(post || {});
     }
     async updatePost(req, id, dto) {
-        return this.postsService.updatePost(Number(id), req.user.userId, dto);
+        const post = await this.postsService.updatePost(Number(id), req.user.id, dto);
+        return new post_entity_1.PostEntity(post || {});
     }
     async deletePost(req, id) {
-        return this.postsService.deletePost(Number(id), req.user.userId);
+        return this.postsService.deletePost(Number(id), req.user.id);
     }
     async createAnswer(req, postId, dto) {
-        return this.postsService.createAnswer(req.user.userId, Number(postId), dto);
+        return this.postsService.createAnswer(req.user.id, Number(postId), dto);
     }
     async getAnswersByPost(postId) {
         return this.postsService.getAnswersByPost(Number(postId));
     }
     async updateAnswer(req, id, dto) {
-        return this.postsService.updateAnswer(Number(id), req.user.userId, dto);
+        return this.postsService.updateAnswer(Number(id), req.user.id, dto);
     }
     async deleteAnswer(req, id) {
-        return this.postsService.deleteAnswer(Number(id), req.user.userId);
+        return this.postsService.deleteAnswer(Number(id), req.user.id);
     }
 };
 exports.PostsController = PostsController;

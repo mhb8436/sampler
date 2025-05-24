@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  frontend
 //
-//  Created by JI HOON LEE on 5/23/25.
+//  Created by mhb8436 on 2025/05/24.
 //
 
 import SwiftUI
@@ -20,5 +20,5 @@ struct ContentView: View {
 }
 
 #Preview {
-//    ContentView()
+    ContentView()
 }

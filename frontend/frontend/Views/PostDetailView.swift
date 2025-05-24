@@ -1,18 +1,23 @@
-//
-//  PostDetailView.swift
-//  frontend
-//
-//  Created by JI HOON LEE on 5/23/25.
-//
-
 import SwiftUI
 
 struct PostDetailView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+    let post: Post
 
-#Preview {
-    PostDetailView()
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(post.title).font(.title2).bold()
+            Text(post.content)
+            Divider()
+            Text("댓글")
+                .font(.headline)
+            List(post.answers) { answer in
+                VStack(alignment: .leading) {
+                    Text(answer.user.nickname).font(.subheadline).bold()
+                    Text(answer.content)
+                }
+            }
+        }
+        .padding()
+        .navigationTitle("게시글")
+    }
 }
