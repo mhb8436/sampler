@@ -40,8 +40,4 @@ frontend/
 
 ## 참고
 - MVVM 패턴 기반으로 설계됨
-- Korean UI/UX 적용
 - Swift Concurrency(`async/await`) 적극 활용
-
----
-문의: [작성자 이메일 또는 연락처]
