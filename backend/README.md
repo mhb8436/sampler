@@ -95,6 +95,7 @@ nest g controller auth
 
 # add jwt constants to .env
 JWT_SECRET = "secret-jwt-development"
+DATABASE_URL="postgresql://myuser:mypassword@localhost:5432/sampler?schema=public"
 
 # eslint 제거
 npm uninstall eslint @eslint/eslintrc @eslint/js eslint-config-prettier eslint-plugin-prettier typescript-eslint
