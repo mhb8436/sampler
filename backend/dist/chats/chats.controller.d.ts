@@ -11,10 +11,10 @@ export declare class ChatsController {
     }>;
     getRooms(): Promise<({
         users: {
-            id: number;
             email: string;
-            password: string;
             nickname: string;
+            password: string;
+            id: number;
         }[];
     } & {
         id: number;

@@ -20,16 +20,16 @@ export declare class ChatsGateway implements OnGatewayConnection, OnGatewayDisco
     }): Promise<void>;
     handleSendMessage(client: Socket, data: string | SendMessageDto): Promise<{
         user: {
-            id: number;
             email: string;
-            password: string;
             nickname: string;
+            password: string;
+            id: number;
         };
     } & {
         id: number;
         content: string;
         createdAt: Date;
-        chatRoomId: number;
         userId: number;
+        chatRoomId: number;
     }>;
 }
