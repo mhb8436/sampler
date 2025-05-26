@@ -1,13 +1,13 @@
 //
-//  frontendUITests.swift
-//  frontendUITests
+//  image2textUITests.swift
+//  image2textUITests
 //
 //  Created by mhb8436 on 5/26/25.
 //
 
 import XCTest
 
-final class frontendUITests: XCTestCase {
+final class image2textUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

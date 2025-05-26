@@ -1,13 +1,13 @@
 //
-//  frontendUITestsLaunchTests.swift
-//  frontendUITests
+//  image2textUITestsLaunchTests.swift
+//  image2textUITests
 //
 //  Created by mhb8436 on 5/26/25.
 //
 
 import XCTest
 
-final class frontendUITestsLaunchTests: XCTestCase {
+final class image2textUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

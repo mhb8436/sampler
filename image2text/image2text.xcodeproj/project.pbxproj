@@ -6,83 +6,63 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		7B744E482DE409090039E011 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7B744E472DE409090039E011 /* Alamofire */; };
-		7B744E4D2DE4092B0039E011 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 7B744E4C2DE4092B0039E011 /* SocketIO */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXContainerItemProxy section */
-		7B744E062DE408A50039E011 /* PBXContainerItemProxy */ = {
+		7B20F0252DE40CE500A0D049 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 7B744DF02DE408A40039E011 /* Project object */;
+			containerPortal = 7B20F00F2DE40CE400A0D049 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7B744DF72DE408A40039E011;
-			remoteInfo = frontend;
+			remoteGlobalIDString = 7B20F0162DE40CE400A0D049;
+			remoteInfo = image2text;
 		};
-		7B744E102DE408A50039E011 /* PBXContainerItemProxy */ = {
+		7B20F02F2DE40CE500A0D049 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 7B744DF02DE408A40039E011 /* Project object */;
+			containerPortal = 7B20F00F2DE40CE400A0D049 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7B744DF72DE408A40039E011;
-			remoteInfo = frontend;
+			remoteGlobalIDString = 7B20F0162DE40CE400A0D049;
+			remoteInfo = image2text;
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		7B744E4F2DE409C00039E011 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		7B744DF82DE408A40039E011 /* frontend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = frontend.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7B744E052DE408A50039E011 /* frontendTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = frontendTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7B744E0F2DE408A50039E011 /* frontendUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = frontendUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B20F0172DE40CE400A0D049 /* image2text.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = image2text.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B20F0242DE40CE500A0D049 /* image2textTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = image2textTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B20F02E2DE40CE500A0D049 /* image2textUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = image2textUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		7B744DFA2DE408A40039E011 /* frontend */ = {
+		7B20F0192DE40CE400A0D049 /* image2text */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = frontend;
+			path = image2text;
 			sourceTree = "<group>";
 		};
-		7B744E082DE408A50039E011 /* frontendTests */ = {
+		7B20F0272DE40CE500A0D049 /* image2textTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = frontendTests;
+			path = image2textTests;
 			sourceTree = "<group>";
 		};
-		7B744E122DE408A50039E011 /* frontendUITests */ = {
+		7B20F0312DE40CE500A0D049 /* image2textUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = frontendUITests;
+			path = image2textUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		7B744DF52DE408A40039E011 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7B744E482DE409090039E011 /* Alamofire in Frameworks */,
-				7B744E4D2DE4092B0039E011 /* SocketIO in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7B744E022DE408A50039E011 /* Frameworks */ = {
+		7B20F0142DE40CE400A0D049 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7B744E0C2DE408A50039E011 /* Frameworks */ = {
+		7B20F0212DE40CE500A0D049 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7B20F02B2DE40CE500A0D049 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -92,22 +72,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7B744DEF2DE408A40039E011 = {
+		7B20F00E2DE40CE400A0D049 = {
 			isa = PBXGroup;
 			children = (
-				7B744DFA2DE408A40039E011 /* frontend */,
-				7B744E082DE408A50039E011 /* frontendTests */,
-				7B744E122DE408A50039E011 /* frontendUITests */,
-				7B744DF92DE408A40039E011 /* Products */,
+				7B20F0192DE40CE400A0D049 /* image2text */,
+				7B20F0272DE40CE500A0D049 /* image2textTests */,
+				7B20F0312DE40CE500A0D049 /* image2textUITests */,
+				7B20F0182DE40CE400A0D049 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		7B744DF92DE408A40039E011 /* Products */ = {
+		7B20F0182DE40CE400A0D049 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7B744DF82DE408A40039E011 /* frontend.app */,
-				7B744E052DE408A50039E011 /* frontendTests.xctest */,
-				7B744E0F2DE408A50039E011 /* frontendUITests.xctest */,
+				7B20F0172DE40CE400A0D049 /* image2text.app */,
+				7B20F0242DE40CE500A0D049 /* image2textTests.xctest */,
+				7B20F02E2DE40CE500A0D049 /* image2textUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -115,141 +95,134 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7B744DF72DE408A40039E011 /* frontend */ = {
+		7B20F0162DE40CE400A0D049 /* image2text */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7B744E192DE408A50039E011 /* Build configuration list for PBXNativeTarget "frontend" */;
+			buildConfigurationList = 7B20F0382DE40CE500A0D049 /* Build configuration list for PBXNativeTarget "image2text" */;
 			buildPhases = (
-				7B744DF42DE408A40039E011 /* Sources */,
-				7B744DF52DE408A40039E011 /* Frameworks */,
-				7B744DF62DE408A40039E011 /* Resources */,
-				7B744E4F2DE409C00039E011 /* Embed Frameworks */,
+				7B20F0132DE40CE400A0D049 /* Sources */,
+				7B20F0142DE40CE400A0D049 /* Frameworks */,
+				7B20F0152DE40CE400A0D049 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				7B744DFA2DE408A40039E011 /* frontend */,
+				7B20F0192DE40CE400A0D049 /* image2text */,
 			);
-			name = frontend;
+			name = image2text;
 			packageProductDependencies = (
-				7B744E472DE409090039E011 /* Alamofire */,
-				7B744E4C2DE4092B0039E011 /* SocketIO */,
 			);
-			productName = frontend;
-			productReference = 7B744DF82DE408A40039E011 /* frontend.app */;
+			productName = image2text;
+			productReference = 7B20F0172DE40CE400A0D049 /* image2text.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7B744E042DE408A50039E011 /* frontendTests */ = {
+		7B20F0232DE40CE500A0D049 /* image2textTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7B744E1C2DE408A50039E011 /* Build configuration list for PBXNativeTarget "frontendTests" */;
+			buildConfigurationList = 7B20F03B2DE40CE500A0D049 /* Build configuration list for PBXNativeTarget "image2textTests" */;
 			buildPhases = (
-				7B744E012DE408A50039E011 /* Sources */,
-				7B744E022DE408A50039E011 /* Frameworks */,
-				7B744E032DE408A50039E011 /* Resources */,
+				7B20F0202DE40CE500A0D049 /* Sources */,
+				7B20F0212DE40CE500A0D049 /* Frameworks */,
+				7B20F0222DE40CE500A0D049 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7B744E072DE408A50039E011 /* PBXTargetDependency */,
+				7B20F0262DE40CE500A0D049 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				7B744E082DE408A50039E011 /* frontendTests */,
+				7B20F0272DE40CE500A0D049 /* image2textTests */,
 			);
-			name = frontendTests;
+			name = image2textTests;
 			packageProductDependencies = (
 			);
-			productName = frontendTests;
-			productReference = 7B744E052DE408A50039E011 /* frontendTests.xctest */;
+			productName = image2textTests;
+			productReference = 7B20F0242DE40CE500A0D049 /* image2textTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		7B744E0E2DE408A50039E011 /* frontendUITests */ = {
+		7B20F02D2DE40CE500A0D049 /* image2textUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7B744E1F2DE408A50039E011 /* Build configuration list for PBXNativeTarget "frontendUITests" */;
+			buildConfigurationList = 7B20F03E2DE40CE500A0D049 /* Build configuration list for PBXNativeTarget "image2textUITests" */;
 			buildPhases = (
-				7B744E0B2DE408A50039E011 /* Sources */,
-				7B744E0C2DE408A50039E011 /* Frameworks */,
-				7B744E0D2DE408A50039E011 /* Resources */,
+				7B20F02A2DE40CE500A0D049 /* Sources */,
+				7B20F02B2DE40CE500A0D049 /* Frameworks */,
+				7B20F02C2DE40CE500A0D049 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7B744E112DE408A50039E011 /* PBXTargetDependency */,
+				7B20F0302DE40CE500A0D049 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				7B744E122DE408A50039E011 /* frontendUITests */,
+				7B20F0312DE40CE500A0D049 /* image2textUITests */,
 			);
-			name = frontendUITests;
+			name = image2textUITests;
 			packageProductDependencies = (
 			);
-			productName = frontendUITests;
-			productReference = 7B744E0F2DE408A50039E011 /* frontendUITests.xctest */;
+			productName = image2textUITests;
+			productReference = 7B20F02E2DE40CE500A0D049 /* image2textUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		7B744DF02DE408A40039E011 /* Project object */ = {
+		7B20F00F2DE40CE400A0D049 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1630;
 				LastUpgradeCheck = 1630;
 				TargetAttributes = {
-					7B744DF72DE408A40039E011 = {
+					7B20F0162DE40CE400A0D049 = {
 						CreatedOnToolsVersion = 16.3;
 					};
-					7B744E042DE408A50039E011 = {
+					7B20F0232DE40CE500A0D049 = {
 						CreatedOnToolsVersion = 16.3;
-						TestTargetID = 7B744DF72DE408A40039E011;
+						TestTargetID = 7B20F0162DE40CE400A0D049;
 					};
-					7B744E0E2DE408A50039E011 = {
+					7B20F02D2DE40CE500A0D049 = {
 						CreatedOnToolsVersion = 16.3;
-						TestTargetID = 7B744DF72DE408A40039E011;
+						TestTargetID = 7B20F0162DE40CE400A0D049;
 					};
 				};
 			};
-			buildConfigurationList = 7B744DF32DE408A40039E011 /* Build configuration list for PBXProject "frontend" */;
+			buildConfigurationList = 7B20F0122DE40CE400A0D049 /* Build configuration list for PBXProject "image2text" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 7B744DEF2DE408A40039E011;
+			mainGroup = 7B20F00E2DE40CE400A0D049;
 			minimizedProjectReferenceProxies = 1;
-			packageReferences = (
-				7B744E462DE409090039E011 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				7B744E4B2DE4092B0039E011 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */,
-			);
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 7B744DF92DE408A40039E011 /* Products */;
+			productRefGroup = 7B20F0182DE40CE400A0D049 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7B744DF72DE408A40039E011 /* frontend */,
-				7B744E042DE408A50039E011 /* frontendTests */,
-				7B744E0E2DE408A50039E011 /* frontendUITests */,
+				7B20F0162DE40CE400A0D049 /* image2text */,
+				7B20F0232DE40CE500A0D049 /* image2textTests */,
+				7B20F02D2DE40CE500A0D049 /* image2textUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		7B744DF62DE408A40039E011 /* Resources */ = {
+		7B20F0152DE40CE400A0D049 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7B744E032DE408A50039E011 /* Resources */ = {
+		7B20F0222DE40CE500A0D049 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7B744E0D2DE408A50039E011 /* Resources */ = {
+		7B20F02C2DE40CE500A0D049 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -259,21 +232,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		7B744DF42DE408A40039E011 /* Sources */ = {
+		7B20F0132DE40CE400A0D049 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7B744E012DE408A50039E011 /* Sources */ = {
+		7B20F0202DE40CE500A0D049 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7B744E0B2DE408A50039E011 /* Sources */ = {
+		7B20F02A2DE40CE500A0D049 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -283,20 +256,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7B744E072DE408A50039E011 /* PBXTargetDependency */ = {
+		7B20F0262DE40CE500A0D049 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7B744DF72DE408A40039E011 /* frontend */;
-			targetProxy = 7B744E062DE408A50039E011 /* PBXContainerItemProxy */;
+			target = 7B20F0162DE40CE400A0D049 /* image2text */;
+			targetProxy = 7B20F0252DE40CE500A0D049 /* PBXContainerItemProxy */;
 		};
-		7B744E112DE408A50039E011 /* PBXTargetDependency */ = {
+		7B20F0302DE40CE500A0D049 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7B744DF72DE408A40039E011 /* frontend */;
-			targetProxy = 7B744E102DE408A50039E011 /* PBXContainerItemProxy */;
+			target = 7B20F0162DE40CE400A0D049 /* image2text */;
+			targetProxy = 7B20F02F2DE40CE500A0D049 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		7B744E172DE408A50039E011 /* Debug */ = {
+		7B20F0362DE40CE500A0D049 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -359,7 +332,7 @@
 			};
 			name = Debug;
 		};
-		7B744E182DE408A50039E011 /* Release */ = {
+		7B20F0372DE40CE500A0D049 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -415,7 +388,7 @@
 			};
 			name = Release;
 		};
-		7B744E1A2DE408A50039E011 /* Debug */ = {
+		7B20F0392DE40CE500A0D049 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -424,6 +397,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "텍스트인식을위한카메라접근권한";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -434,7 +408,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pizzastudio.frontend;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pizzastudio.image2text;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -442,7 +416,7 @@
 			};
 			name = Debug;
 		};
-		7B744E1B2DE408A50039E011 /* Release */ = {
+		7B20F03A2DE40CE500A0D049 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -451,6 +425,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "텍스트인식을위한카메라접근권한";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -461,7 +436,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pizzastudio.frontend;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pizzastudio.image2text;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -469,7 +444,7 @@
 			};
 			name = Release;
 		};
-		7B744E1D2DE408A50039E011 /* Debug */ = {
+		7B20F03C2DE40CE500A0D049 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -478,16 +453,16 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pizzastudio.frontendTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pizzastudio.image2textTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/frontend.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/frontend";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/image2text.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/image2text";
 			};
 			name = Debug;
 		};
-		7B744E1E2DE408A50039E011 /* Release */ = {
+		7B20F03D2DE40CE500A0D049 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -496,119 +471,87 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pizzastudio.frontendTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pizzastudio.image2textTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/frontend.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/frontend";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/image2text.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/image2text";
 			};
 			name = Release;
 		};
-		7B744E202DE408A50039E011 /* Debug */ = {
+		7B20F03F2DE40CE500A0D049 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pizzastudio.frontendUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pizzastudio.image2textUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = frontend;
+				TEST_TARGET_NAME = image2text;
 			};
 			name = Debug;
 		};
-		7B744E212DE408A50039E011 /* Release */ = {
+		7B20F0402DE40CE500A0D049 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pizzastudio.frontendUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pizzastudio.image2textUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = frontend;
+				TEST_TARGET_NAME = image2text;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7B744DF32DE408A40039E011 /* Build configuration list for PBXProject "frontend" */ = {
+		7B20F0122DE40CE400A0D049 /* Build configuration list for PBXProject "image2text" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7B744E172DE408A50039E011 /* Debug */,
-				7B744E182DE408A50039E011 /* Release */,
+				7B20F0362DE40CE500A0D049 /* Debug */,
+				7B20F0372DE40CE500A0D049 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7B744E192DE408A50039E011 /* Build configuration list for PBXNativeTarget "frontend" */ = {
+		7B20F0382DE40CE500A0D049 /* Build configuration list for PBXNativeTarget "image2text" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7B744E1A2DE408A50039E011 /* Debug */,
-				7B744E1B2DE408A50039E011 /* Release */,
+				7B20F0392DE40CE500A0D049 /* Debug */,
+				7B20F03A2DE40CE500A0D049 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7B744E1C2DE408A50039E011 /* Build configuration list for PBXNativeTarget "frontendTests" */ = {
+		7B20F03B2DE40CE500A0D049 /* Build configuration list for PBXNativeTarget "image2textTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7B744E1D2DE408A50039E011 /* Debug */,
-				7B744E1E2DE408A50039E011 /* Release */,
+				7B20F03C2DE40CE500A0D049 /* Debug */,
+				7B20F03D2DE40CE500A0D049 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7B744E1F2DE408A50039E011 /* Build configuration list for PBXNativeTarget "frontendUITests" */ = {
+		7B20F03E2DE40CE500A0D049 /* Build configuration list for PBXNativeTarget "image2textUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7B744E202DE408A50039E011 /* Debug */,
-				7B744E212DE408A50039E011 /* Release */,
+				7B20F03F2DE40CE500A0D049 /* Debug */,
+				7B20F0402DE40CE500A0D049 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		7B744E462DE409090039E011 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.10.2;
-			};
-		};
-		7B744E4B2DE4092B0039E011 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/socketio/socket.io-client-swift.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		7B744E472DE409090039E011 /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7B744E462DE409090039E011 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
-		7B744E4C2DE4092B0039E011 /* SocketIO */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7B744E4B2DE4092B0039E011 /* XCRemoteSwiftPackageReference "socket.io-client-swift" */;
-			productName = SocketIO;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = 7B744DF02DE408A40039E011 /* Project object */;
+	rootObject = 7B20F00F2DE40CE400A0D049 /* Project object */;
 }
