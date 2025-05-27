@@ -104,6 +104,9 @@ npm uninstall eslint @eslint/eslintrc @eslint/js eslint-config-prettier eslint-p
 
 nest g resource crawling
 
+npm i @nest/schedule
+
+
 
 # package.json에서
 #    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix", 삭제
