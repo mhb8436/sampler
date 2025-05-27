@@ -17,6 +17,7 @@ const prisma_module_1 = require("./prisma/prisma.module");
 const chats_module_1 = require("./chats/chats.module");
 const auth_module_1 = require("./auth/auth.module");
 const crawling_module_1 = require("./crawling/crawling.module");
+const schedule_1 = require("@nestjs/schedule");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -26,6 +27,7 @@ exports.AppModule = AppModule = __decorate([
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
             }),
+            schedule_1.ScheduleModule.forRoot({}),
             users_module_1.UsersModule,
             posts_module_1.PostsModule,
             prisma_module_1.PrismaModule,

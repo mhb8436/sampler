@@ -8,12 +8,14 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ChatsModule } from './chats/chats.module';
 import { AuthModule } from './auth/auth.module';
 import { CrawlingModule } from './crawling/crawling.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    ScheduleModule.forRoot({}),
     UsersModule,
     PostsModule,
     PrismaModule,

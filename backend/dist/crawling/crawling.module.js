@@ -10,13 +10,17 @@ exports.CrawlingModule = void 0;
 const common_1 = require("@nestjs/common");
 const crawling_service_1 = require("./crawling.service");
 const crawling_controller_1 = require("./crawling.controller");
+const prisma_module_1 = require("../prisma/prisma.module");
+const scheduler_service_1 = require("./scheduler.service");
 let CrawlingModule = class CrawlingModule {
 };
 exports.CrawlingModule = CrawlingModule;
 exports.CrawlingModule = CrawlingModule = __decorate([
     (0, common_1.Module)({
+        imports: [prisma_module_1.PrismaModule],
         controllers: [crawling_controller_1.CrawlingController],
-        providers: [crawling_service_1.CrawlingService],
+        providers: [crawling_service_1.CrawlingService, scheduler_service_1.SchedulerService],
+        exports: [crawling_service_1.CrawlingService],
     })
 ], CrawlingModule);
 //# sourceMappingURL=crawling.module.js.map
