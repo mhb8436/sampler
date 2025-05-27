@@ -29,6 +29,21 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(process.env.PORT ?? 3000);
+  // CORS 설정
+  app.enableCors({
+    origin: true,
+    credentials: true,
+  });
+
+  // Socket.IO를 위한 설정
+  const port = process.env.PORT || 3000;
+  await app.listen(port);
+
+  // PM2 ready 신호 전송
+  if (process.send) {
+    process.send('ready');
+  }
+
+  console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();

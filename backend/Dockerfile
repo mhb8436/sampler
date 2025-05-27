@@ -20,6 +20,9 @@ FROM node:20-alpine
 
 WORKDIR /app
 
+# Install PM2 globally
+RUN npm install -g pm2
+
 # Copy package files
 COPY package*.json ./
 
@@ -30,11 +33,14 @@ RUN npm install --only=production
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/prisma ./prisma
 
+# Copy PM2 ecosystem file
+COPY ecosystem.config.js .
+
 # Generate Prisma Client
 RUN npx prisma generate
 
 # Expose the port the app runs on
 EXPOSE 3000
 
-# Start the application
-CMD ["npm", "run", "start:prod"] 
+# Start the application with PM2
+CMD ["pm2-runtime", "ecosystem.config.js"] 

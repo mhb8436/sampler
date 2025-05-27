@@ -46,3 +46,12 @@ docker compose up -d
 
 # 컨테이너 중지
 docker compose down
+
+# 빌드 재실행 
+docker compose build --no-cache
+
+# 컨테이너 내부의 PM2 모니터링
+docker compose exec backend pm2 monit
+
+# 로그 보기
+docker compose exec backend pm2 logs
