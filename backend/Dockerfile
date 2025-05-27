@@ -39,10 +39,14 @@ COPY ecosystem.config.js .
 # Generate Prisma Client
 RUN npx prisma generate
 
-RUN npx prisma db push
+# Create startup script
+RUN echo '#!/bin/sh\n\
+npx prisma db push\n\
+pm2-runtime ecosystem.config.js' > /app/start.sh && \
+chmod +x /app/start.sh
 
 # Expose the port the app runs on
 EXPOSE 3000
 
-# Start the application with PM2
-CMD ["pm2-runtime", "ecosystem.config.js"] 
+# Start the application with startup script
+CMD ["/app/start.sh"] 

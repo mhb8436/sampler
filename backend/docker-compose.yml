@@ -26,6 +26,12 @@ services:
         condition: service_healthy
     networks:
       - app-network
+    healthcheck:
+      test: ['CMD', 'wget', '--spider', 'http://localhost:3000/health']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
 
   postgres:
     image: postgres:14-alpine
