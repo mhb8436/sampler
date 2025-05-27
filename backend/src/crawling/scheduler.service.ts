@@ -10,7 +10,7 @@ export class SchedulerService {
     private readonly prismaService: PrismaService,
   ) {}
 
-  @Cron(CronExpression.EVERY_10_SECONDS)
+  @Cron(CronExpression.EVERY_10_HOURS)
   async scheduleCrawling() {
     const today = new Date();
     console.log('scheduleCrawling', today);
