@@ -20,8 +20,9 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Install PM2 globally
-RUN npm install -g pm2
+# Install PM2 globally and netcat
+RUN npm install -g pm2 && \
+    apk add --no-cache netcat-openbsd
 
 # Copy package files
 COPY package*.json ./
@@ -40,13 +41,11 @@ COPY ecosystem.config.js .
 RUN npx prisma generate
 
 # Create startup script
-RUN echo '#!/bin/sh\n\
-npx prisma db push\n\
-pm2-runtime ecosystem.config.js' > /app/start.sh && \
-chmod +x /app/start.sh
+COPY start.sh .
+RUN chmod +x start.sh
 
 # Expose the port the app runs on
 EXPOSE 3000
 
 # Start the application with startup script
-CMD ["/app/start.sh"] 
+CMD ["./start.sh"] 
