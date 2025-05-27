@@ -16,6 +16,7 @@ const posts_module_1 = require("./posts/posts.module");
 const prisma_module_1 = require("./prisma/prisma.module");
 const chats_module_1 = require("./chats/chats.module");
 const auth_module_1 = require("./auth/auth.module");
+const crawling_module_1 = require("./crawling/crawling.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -30,6 +31,7 @@ exports.AppModule = AppModule = __decorate([
             prisma_module_1.PrismaModule,
             chats_module_1.ChatsModule,
             auth_module_1.AuthModule,
+            crawling_module_1.CrawlingModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
