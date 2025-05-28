@@ -6,13 +6,29 @@ import { UpdateAnswerDto } from './dto/update-answer.dto';
 export declare class PostsService {
     private prisma;
     constructor(prisma: PrismaService);
-    createPost(userId: number, createPostDto: CreatePostDto): import(".prisma/client").Prisma.Prisma__PostClient<{
+    createPost(userId: number, createPostDto: CreatePostDto, files: Express.Multer.File[]): Promise<({
+        user: {
+            email: string;
+            nickname: string;
+            password: string;
+            id: number;
+        };
+        attachments: {
+            id: number;
+            createdAt: Date;
+            fileName: string;
+            fileUrl: string;
+            fileSize: number;
+            fileType: string;
+            postId: number;
+        }[];
+    } & {
         title: string;
         id: number;
         content: string;
         createdAt: Date;
         userId: number;
-    }, never, import("@prisma/client/runtime/library").DefaultArgs, import(".prisma/client").Prisma.PrismaClientOptions>;
+    }) | null>;
     getPosts(): Promise<({
         user: {
             email: string;

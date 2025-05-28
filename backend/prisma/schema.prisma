@@ -27,13 +27,14 @@ model User {
 }
 
 model Post {
-  id        Int      @id @default(autoincrement())
-  title     String
-  content   String
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int
-  answers   Answer[]
+  id          Int          @id @default(autoincrement())
+  title       String
+  content     String
+  createdAt   DateTime     @default(now())
+  user        User         @relation(fields: [userId], references: [id])
+  userId      Int
+  answers     Answer[]
+  attachments Attachment[]
 }
 
 model Answer {
@@ -58,7 +59,18 @@ model Message {
   content    String
   createdAt  DateTime @default(now())
   chatRoom   ChatRoom @relation(fields: [chatRoomId], references: [id])
-  chatRoomId Int
+  chatRoomId xnt
   user       User     @relation(fields: [userId], references: [id])
   userId     Int
+}
+
+model Attachment {
+  id        Int      @id @default(autoincrement())
+  fileName  String
+  fileUrl   String
+  fileSize  Int
+  fileType  String
+  createdAt DateTime @default(now())
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    Int
 }

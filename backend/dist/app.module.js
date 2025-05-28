@@ -18,6 +18,7 @@ const chats_module_1 = require("./chats/chats.module");
 const auth_module_1 = require("./auth/auth.module");
 const crawling_module_1 = require("./crawling/crawling.module");
 const schedule_1 = require("@nestjs/schedule");
+const azure_storage_module_1 = require("./azure-storage/azure-storage.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -34,6 +35,7 @@ exports.AppModule = AppModule = __decorate([
             chats_module_1.ChatsModule,
             auth_module_1.AuthModule,
             crawling_module_1.CrawlingModule,
+            azure_storage_module_1.AzureStorageModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

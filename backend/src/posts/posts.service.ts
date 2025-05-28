@@ -9,11 +9,37 @@ import { UpdateAnswerDto } from './dto/update-answer.dto';
 export class PostsService {
   constructor(private prisma: PrismaService) {}
 
-  createPost(userId: number, createPostDto: CreatePostDto) {
-    return this.prisma.post.create({
+  async createPost(
+    userId: number,
+    createPostDto: CreatePostDto,
+    files: Express.Multer.File[],
+  ) {
+    const post = await this.prisma.post.create({
       data: {
         ...createPostDto,
         userId,
+      },
+    });
+
+    if (files && files.length > 0) {
+      const attachmentPromise = files.map(async (file) => {
+        return this.prisma.attachment.create({
+          data: {
+            postId: post.id,
+            fileName: file.originalname,
+            fileUrl: file['url'],
+            fileSize: file.size,
+            fileType: file.mimetype,
+          },
+        });
+      });
+      await Promise.all(attachmentPromise);
+    }
+    return this.prisma.post.findUnique({
+      where: { id: post.id },
+      include: {
+        user: true,
+        attachments: true,
       },
     });
   }

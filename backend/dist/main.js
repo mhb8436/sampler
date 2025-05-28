@@ -19,7 +19,16 @@ async function bootstrap() {
         .build();
     const document = swagger_1.SwaggerModule.createDocument(app, config);
     swagger_1.SwaggerModule.setup('api', app, document);
-    await app.listen(process.env.PORT ?? 3000);
+    app.enableCors({
+        origin: true,
+        credentials: true,
+    });
+    const port = process.env.PORT || 3000;
+    await app.listen(port);
+    if (process.send) {
+        process.send('ready');
+    }
+    console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();
 //# sourceMappingURL=main.js.map

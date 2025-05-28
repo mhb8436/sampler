@@ -22,18 +22,20 @@ const update_answer_dto_1 = require("./dto/update-answer.dto");
 const create_answer_dto_1 = require("./dto/create-answer.dto");
 const swagger_1 = require("@nestjs/swagger");
 const post_entity_1 = require("./entities/post.entity");
+const azure_storage_interceptor_1 = require("../azure-storage/azure-storage.interceptor");
+const platform_express_1 = require("@nestjs/platform-express");
 let PostsController = class PostsController {
     postsService;
     constructor(postsService) {
         this.postsService = postsService;
     }
     async createPost(req, dto) {
-        const post = await this.postsService.createPost(req.user.id, dto);
-        return new post_entity_1.PostEntity(post);
+        const post = await this.postsService.createPost(req.user.id, dto, req.files);
+        return new post_entity_1.PostEntity(post || {});
     }
     async getPosts() {
         const posts = await this.postsService.getPosts();
-        return posts.map(post => new post_entity_1.PostEntity(post));
+        return posts.map((post) => new post_entity_1.PostEntity(post));
     }
     async getPostById(id) {
         const post = await this.postsService.getPostById(Number(id));
@@ -63,6 +65,25 @@ exports.PostsController = PostsController;
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)('posts'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('files', 5, {
+        limits: {
+            fileSize: 1024 * 1024 * 5,
+        },
+        fileFilter: (req, file, cb) => {
+            const allowedType = [
+                'image/jpeg',
+                'image/png',
+                'image/gif',
+                'application/pdf',
+            ];
+            if (allowedType.includes(file.mimetype)) {
+                cb(null, true);
+            }
+            else {
+                cb(new common_1.BadRequestException('Invalid file type'), false);
+            }
+        },
+    }), azure_storage_interceptor_1.AzureStorageInterceptor),
     (0, swagger_1.ApiOperation)({ summary: '게시글 생성' }),
     __param(0, (0, common_1.Request)()),
     __param(1, (0, common_1.Body)()),

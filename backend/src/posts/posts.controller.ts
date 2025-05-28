@@ -8,6 +8,8 @@ import {
   Delete,
   UseGuards,
   Request,
+  UseInterceptors,
+  BadRequestException,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -17,6 +19,8 @@ import { UpdateAnswerDto } from './dto/update-answer.dto';
 import { CreateAnswerDto } from './dto/create-answer.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { PostEntity } from './entities/post.entity';
+import { AzureStorageInterceptor } from 'src/azure-storage/azure-storage.interceptor';
+import { FilesInterceptor } from '@nestjs/platform-express';
 
 @Controller('posts')
 @ApiTags('posts')
@@ -26,18 +30,43 @@ export class PostsController {
 
   @UseGuards(JwtAuthGuard)
   @Post('posts')
+  @UseInterceptors(
+    FilesInterceptor('files', 5, {
+      limits: {
+        fileSize: 1024 * 1024 * 5, // 5MB
+      },
+      fileFilter: (req, file, cb) => {
+        const allowedType = [
+          'image/jpeg',
+          'image/png',
+          'image/gif',
+          'application/pdf',
+        ];
+        if (allowedType.includes(file.mimetype)) {
+          cb(null, true);
+        } else {
+          cb(new BadRequestException('Invalid file type'), false);
+        }
+      },
+    }),
+    AzureStorageInterceptor,
+  )
   @ApiOperation({ summary: '게시글 생성' })
   async createPost(@Request() req, @Body() dto: CreatePostDto) {
-    const post = await this.postsService.createPost(req.user.id, dto);
-    return new PostEntity(post)
+    const post = await this.postsService.createPost(
+      req.user.id,
+      dto,
+      req.files,
+    );
+    return new PostEntity(post || {});
   }
 
   // 전체 게시글 조회
   @Get('posts')
   @ApiOperation({ summary: '전체 게시글 조회' })
   async getPosts() {
-    const posts = await  this.postsService.getPosts();
-    return posts.map(post => new PostEntity(post));
+    const posts = await this.postsService.getPosts();
+    return posts.map((post) => new PostEntity(post));
   }
 
   // 단일 게시글 조회
@@ -57,7 +86,11 @@ export class PostsController {
     @Param('id') id: string,
     @Body() dto: UpdatePostDto,
   ) {
-    const post = await this.postsService.updatePost(Number(id), req.user.id, dto);
+    const post = await this.postsService.updatePost(
+      Number(id),
+      req.user.id,
+      dto,
+    );
     return new PostEntity(post || {});
   }
 

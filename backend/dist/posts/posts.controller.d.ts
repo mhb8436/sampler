@@ -12,8 +12,8 @@ export declare class PostsController {
     getPostById(id: string): Promise<PostEntity>;
     updatePost(req: any, id: string, dto: UpdatePostDto): Promise<PostEntity>;
     deletePost(req: any, id: string): Promise<{
-        title: string;
         id: number;
+        title: string;
         content: string;
         createdAt: Date;
         userId: number;
@@ -27,10 +27,10 @@ export declare class PostsController {
     }>;
     getAnswersByPost(postId: string): Promise<({
         user: {
-            email: string;
-            nickname: string;
-            password: string;
             id: number;
+            email: string;
+            password: string;
+            nickname: string;
         };
     } & {
         id: number;

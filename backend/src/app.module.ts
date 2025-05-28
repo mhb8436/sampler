@@ -9,6 +9,7 @@ import { ChatsModule } from './chats/chats.module';
 import { AuthModule } from './auth/auth.module';
 import { CrawlingModule } from './crawling/crawling.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { AzureStorageModule } from './azure-storage/azure-storage.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     ChatsModule,
     AuthModule,
     CrawlingModule,
+    AzureStorageModule,
   ],
   controllers: [AppController],
   providers: [AppService],
