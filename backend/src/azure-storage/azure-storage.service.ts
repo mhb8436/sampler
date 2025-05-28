@@ -11,10 +11,6 @@ export class AzureStorageService {
     const connectionString = this.configService.get(
       'AZURE_STORAGE_CONNECTION_STRING',
     );
-    // console.log(
-    //   'AzureStorageService constructor',
-    //   this.escapeURLPath(connectionString),
-    // );
     const containerName = this.configService.get(
       'AZURE_STORAGE_CONTAINER_NAME',
     );
@@ -22,18 +18,6 @@ export class AzureStorageService {
     const blobServiceClient =
       BlobServiceClient.fromConnectionString(connectionString);
     this.containerClient = blobServiceClient.getContainerClient(containerName);
-  }
-
-  escapeURLPath(url: string): string {
-    const urlParsed = new URL(url);
-
-    let path = urlParsed.pathname;
-    path = path || '/';
-
-    path = escape(path);
-    urlParsed.pathname = path;
-
-    return urlParsed.toString();
   }
 
   async uploadFile(

@@ -25,14 +25,6 @@ let AzureStorageService = class AzureStorageService {
         const blobServiceClient = storage_blob_1.BlobServiceClient.fromConnectionString(connectionString);
         this.containerClient = blobServiceClient.getContainerClient(containerName);
     }
-    escapeURLPath(url) {
-        const urlParsed = new URL(url);
-        let path = urlParsed.pathname;
-        path = path || '/';
-        path = escape(path);
-        urlParsed.pathname = path;
-        return urlParsed.toString();
-    }
     async uploadFile(file) {
         const blobName = `${(0, uuid_1.v4)()}-${file.originalname}`;
         const blockBlobClient = this.containerClient.getBlockBlobClient(blobName);

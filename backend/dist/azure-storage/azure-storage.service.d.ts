@@ -3,7 +3,6 @@ export declare class AzureStorageService {
     private readonly configService;
     private readonly containerClient;
     constructor(configService: ConfigService);
-    escapeURLPath(url: string): string;
     uploadFile(file: Express.Multer.File): Promise<{
         url: string;
         fileName: string;
