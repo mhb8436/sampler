@@ -21,6 +21,8 @@ services:
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/sampler?schema=public
       - JWT_SECRET=your_jwt_secret_here
+      - AZURE_STORAGE_CONNECTION_STRING=your_azure_storage_connection_string_here
+      - AZURE_STORAGE_CONTAINER_NAME=your_azure_storage_container_name_here
     depends_on:
       postgres:
         condition: service_healthy
