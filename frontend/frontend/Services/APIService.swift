@@ -64,18 +64,100 @@ class APIService {
     }
 
     // 글 작성
-    func createPost(title: String, content: String, token: String) async throws -> Bool {
+    func createPost(title: String, content: String, files: [Data]? = nil ) async throws -> Bool {
         let params = ["title": title, "content": content]
         let headers = try getAuthHeaders()
+        print("createPost : \(params) \(headers)")
         
-        let response = try await AF.request("\(baseURL)/posts/posts", method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers)
+        if let files = files, !files.isEmpty {
+            // 멀티파트 폼 데이터로 전송
+            return try await withCheckedThrowingContinuation { continuation in
+                AF.upload(multipartFormData: { multipartFormData in
+                    multipartFormData.append(title.data(using: .utf8)!, withName: "title")
+                    multipartFormData.append(content.data(using: .utf8)!, withName: "content")
+                    
+                    for (index, fileData) in files.enumerated() {
+                        multipartFormData.append(fileData, withName: "files", fileName: "file\(index).jpg", mimeType: "image/jpeg")
+                    }
+                }, to: "\(baseURL)/posts/posts", method: .post, headers: headers)
+                .validate()
+                .response { response in
+                    switch response.result {
+                    case .success:
+                        continuation.resume(returning: true)
+                    case .failure(let error):
+                        continuation.resume(throwing: error)
+                    }
+                }
+            }
+        } else {
+            // 일반 JSON으로 전송
+            let params = ["title": title, "content": content]
+            let response = try await AF.request("\(baseURL)/posts/posts",
+                                              method: .post,
+                                              parameters: params,
+                                              encoding: JSONEncoding.default,
+                                              headers: headers)
+                .validate()
+                .serializingData()
+                .response
+            return response.error == nil
+        }
+    }
+
+    // 게시글 수정
+    func updatePost(id: Int, title: String, content: String, files: [Data]? = nil) async throws -> Bool {
+        let headers = try getAuthHeaders()
+        
+        if let files = files, !files.isEmpty {
+            // 멀티파트 폼 데이터로 전송
+            return try await withCheckedThrowingContinuation { continuation in
+                AF.upload(multipartFormData: { multipartFormData in
+                    multipartFormData.append(title.data(using: .utf8)!, withName: "title")
+                    multipartFormData.append(content.data(using: .utf8)!, withName: "content")
+                    
+                    for (index, fileData) in files.enumerated() {
+                        multipartFormData.append(fileData, withName: "files", fileName: "file\(index).jpg", mimeType: "image/jpeg")
+                    }
+                }, to: "\(baseURL)/posts/posts/\(id)", method: .put, headers: headers)
+                .validate()
+                .response { response in
+                    switch response.result {
+                    case .success:
+                        continuation.resume(returning: true)
+                    case .failure(let error):
+                        continuation.resume(throwing: error)
+                    }
+                }
+            }
+        } else {
+            // 일반 JSON으로 전송
+            let params = ["title": title, "content": content]
+            let response = try await AF.request("\(baseURL)/posts/posts/\(id)",
+                                              method: .put,
+                                              parameters: params,
+                                              encoding: JSONEncoding.default,
+                                              headers: headers)
+                .validate()
+                .serializingData()
+                .response
+            return response.error == nil
+        }
+    }
+
+    // 게시글 삭제
+    func deletePost(id: Int) async throws -> Bool {
+        let headers = try getAuthHeaders()
+        let response = try await AF.request("\(baseURL)/posts/posts/\(id)",
+                                          method: .delete,
+                                          headers: headers)
             .validate()
             .serializingData()
             .response
-        
         return response.error == nil
     }
 
+    
     // 댓글 작성
     func createAnswer(postId: Int, content: String) async throws -> Bool {
         let params = ["content": content]
