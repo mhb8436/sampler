@@ -36,7 +36,7 @@ async function bootstrap() {
   });
 
   // Socket.IO를 위한 설정
-  const port = process.env.PORT || 3030;
+  const port = process.env.PORT || 3000;
   await app.listen(port);
 
   // PM2 ready 신호 전송

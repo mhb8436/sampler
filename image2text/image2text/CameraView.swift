@@ -13,30 +13,43 @@ struct CameraView: UIViewRepresentable {
     @ObservedObject var viewModel: CameraViewModel
     
     func makeUIView (context: Context) -> UIView {
-        let view = UIView(frame: UIScreen.main.bounds)
+        let view = UIView()
         
         guard let session = viewModel.session else { return view}
         
         let previewLayer = AVCaptureVideoPreviewLayer(session: session)
-        previewLayer.frame = view.frame
         previewLayer.videoGravity = .resizeAspectFill
         view.layer.addSublayer(previewLayer)
         
-        let captureButton = UIButton(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
-        captureButton.center = CGPoint(x: view.frame.width / 2, y: view.frame.height - 50)
+        let captureButton = UIButton()
         captureButton.backgroundColor = .white
         captureButton.layer.cornerRadius = 35
         captureButton.layer.borderWidth = 5
         captureButton.layer.borderColor = UIColor.gray.cgColor
         captureButton.addTarget(context.coordinator, action: #selector(Coordinator.capturePhoto), for: .touchUpInside)
+        
+        captureButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(captureButton)
+        
+        NSLayoutConstraint.activate([
+            captureButton.widthAnchor.constraint(equalToConstant: 70),
+            captureButton.heightAnchor.constraint(equalToConstant: 70),
+            captureButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            captureButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
+        ])
+        
+        DispatchQueue.main.async {
+            previewLayer.frame = view.bounds
+        }
         
         return view
     }
     
 
     func updateUIView(_ uiView: UIView, context: Context) {
-        
+        if let previewLayer = uiView.layer.sublayers?.first as? AVCaptureVideoPreviewLayer {
+            previewLayer.frame = uiView.bounds
+        }
     }
     
     func makeCoordinator() -> Coordinator {
@@ -57,5 +70,5 @@ struct CameraView: UIViewRepresentable {
 }
 
 #Preview {
-    
+    CameraView(viewModel: CameraViewModel())
 }
