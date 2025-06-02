@@ -60,7 +60,7 @@ class PostViewModel: ObservableObject {
             }
             await fetchPosts()
         } else {
-            throw NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "게시글 작성에 실패했습니다."])
+            throw NSError(domain: "", code: -99, userInfo: [NSLocalizedDescriptionKey: "게시글 작성에 실패했습니다."])
         }
     }
 

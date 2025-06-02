@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { CrawlingModule } from './crawling/crawling.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { AzureStorageModule } from './azure-storage/azure-storage.module';
+import { RecommendationsModule } from './recommendations/recommendations.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { AzureStorageModule } from './azure-storage/azure-storage.module';
     AuthModule,
     CrawlingModule,
     AzureStorageModule,
+    RecommendationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

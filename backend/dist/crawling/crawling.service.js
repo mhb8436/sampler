@@ -118,6 +118,76 @@ let CrawlingService = class CrawlingService {
         const resp = await axios_1.default.get(url, { headers: this.headers });
         return resp.data;
     }
+    async crawlerStartPither() {
+        console.log('crawlerStartPither');
+        const URL = 'https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx';
+        const browser = await puppeteer.launch({
+            headless: false,
+        });
+        const gameIds = [];
+        try {
+            const page = await browser.newPage();
+            await page.goto(URL, { waitUntil: 'networkidle0' });
+            page.on('console', (msg) => console.log('Browser Console:', msg.text()));
+            await page.waitForSelector('.today-game .game-cont', { timeout: 1000 });
+            const content = await page.content();
+            const $ = cheerio.load(content);
+            const games = [];
+            const gameHandles = await page.$$('.today-game .game-cont');
+            for (const gameEl of gameHandles) {
+                const gameElContent = await page.evaluate((el) => el.outerHTML, gameEl);
+                await gameEl.click();
+                const startTime = Date.now();
+                await page.waitForFunction(() => {
+                    const element = document.querySelector('#gameCenterContents');
+                    const hasContent = element && element.innerHTML.trim().length > 0;
+                    return hasContent;
+                }, {
+                    timeout: 5000,
+                    polling: 100,
+                });
+                const newContent = await page.evaluate(() => {
+                    const newElement = document.querySelector('#gameCenterContents');
+                    return newElement ? newElement.innerHTML : null;
+                });
+                const $ = cheerio.load(newContent || '');
+                const gameData = await page.evaluate((el) => {
+                    const game = el;
+                    const getText = (selector) => {
+                        const el = game.querySelector(selector);
+                        return el?.textContent?.trim().slice(1) ?? '';
+                    };
+                    const getImgAttr = (selector, attr) => {
+                        const el = game.querySelector(selector);
+                        return el?.getAttribute(attr) ?? '';
+                    };
+                    const getImgAttr2 = (selector, attr) => {
+                        const el = $(selector);
+                        return el.attr(attr) ?? '';
+                    };
+                    return {
+                        awayPitcher: getText('.team.away .today-pitcher p'),
+                        homePitcher: getText('.team.home .today-pitcher p'),
+                        broadimage: `https:${getImgAttr('.top li:nth-child(2) img', 'src')}`,
+                        stime: game.querySelector('.top li:nth-child(3)')?.textContent?.trim() ??
+                            '',
+                        homePitcherImg: `https:${getImgAttr2('.tbl-pitcher tbody tr:first-child td.pitcher .player-img img.team', 'src')}`,
+                        awayPitcherImg: `https:${getImgAttr2('.tbl-pitcher tbody tr:nth-child(2) td.pitcher .player-img img.team', 'src')}`,
+                        gameID: game.getAttribute('g_id') ?? undefined,
+                    };
+                }, gameEl);
+                console.log(gameData);
+                await new Promise((resolve) => setTimeout(resolve, 200));
+            }
+            return games;
+        }
+        catch (error) {
+            console.error(error);
+        }
+        finally {
+            await browser.close();
+        }
+    }
 };
 exports.CrawlingService = CrawlingService;
 exports.CrawlingService = CrawlingService = __decorate([

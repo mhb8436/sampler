@@ -12,7 +12,7 @@ struct frontendApp: App {
     @StateObject var authVM = AuthViewModel()
     var body: some Scene {
         WindowGroup {
-            if authVM.isLoggedIn, let token = authVM.token {
+            if authVM.isLoggedIn, let token = authVM.token {                
                 MainTabView(token: token)
             } else {
                 AuthView(viewModel: authVM)

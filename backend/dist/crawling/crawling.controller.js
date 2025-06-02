@@ -29,6 +29,9 @@ let CrawlingController = class CrawlingController {
     async crawlKboGameJson(date) {
         return this.crawlingService.crawlerKboGameJson(date);
     }
+    async crawlKboGameJsonStart() {
+        return this.crawlingService.crawlerStartPither();
+    }
 };
 exports.CrawlingController = CrawlingController;
 __decorate([
@@ -52,6 +55,12 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], CrawlingController.prototype, "crawlKboGameJson", null);
+__decorate([
+    (0, common_1.Get)('kbo-game-pither'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], CrawlingController.prototype, "crawlKboGameJsonStart", null);
 exports.CrawlingController = CrawlingController = __decorate([
     (0, common_1.Controller)('crawling'),
     __metadata("design:paramtypes", [crawling_service_1.CrawlingService])

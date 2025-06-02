@@ -100,6 +100,120 @@ export class CrawlingService {
     const resp = await axios.get(url, { headers: this.headers });
     return resp.data;
   }
+
+  // css 선택자로 크롤링
+  async crawlerStartPither(): Promise<any> {
+    console.log('crawlerStartPither');
+    const URL = 'https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx';
+
+    const browser = await puppeteer.launch({
+      headless: false,
+    });
+
+    // 게임 아이디만 따로 추려
+    const gameIds: string[] = [];
+
+    try {
+      const page = await browser.newPage();
+      //페이지 로드 대기
+      await page.goto(URL, { waitUntil: 'networkidle0' });
+
+      // 네트워크 요청 모니터링
+      // page.on('request', (request) => {
+      //   console.log('Request:', request.method(), request.url());
+      // });
+
+      // page.on('response', (response) => {
+      //   console.log('Response:', response.url(), response.status());
+      // });
+
+      // 브라우저 콘솔 로그를 Node.js 콘솔로 전달
+      page.on('console', (msg) => console.log('Browser Console:', msg.text()));
+
+      await page.waitForSelector('.today-game .game-cont', { timeout: 1000 });
+
+      // html 태그로 내용 갖고오기
+      const content = await page.content();
+      const $ = cheerio.load(content);
+      const games: KboGameData[] = [];
+
+      // 추가
+      const gameHandles = await page.$$('.today-game .game-cont');
+      for (const gameEl of gameHandles) {
+        const gameElContent = await page.evaluate((el) => el.outerHTML, gameEl);
+
+        await gameEl.click();
+
+        const startTime = Date.now();
+
+        await page.waitForFunction(
+          () => {
+            const element = document.querySelector('#gameCenterContents');
+            const hasContent = element && element.innerHTML.trim().length > 0;
+            return hasContent;
+          },
+          {
+            timeout: 5000,
+            polling: 100, // 100ms마다 체크
+          },
+        );
+
+        // 내용이 채워진 후 DOM 가져오기
+        const newContent = await page.evaluate(() => {
+          const newElement = document.querySelector('#gameCenterContents');
+          return newElement ? newElement.innerHTML : null; // innerHTML 반환
+        });
+
+        // cheerio로 HTML 파싱
+        const $ = cheerio.load(newContent || '');
+
+        // 로딩된 다음 데이터 긁어오기
+        const gameData = await page.evaluate((el) => {
+          const game = el as HTMLElement;
+
+          const getText = (selector: string) => {
+            const el = game.querySelector(selector);
+            return el?.textContent?.trim().slice(1) ?? '';
+          };
+
+          const getImgAttr = (selector: string, attr: string) => {
+            const el = game.querySelector(selector) as HTMLImageElement;
+            return el?.getAttribute(attr) ?? '';
+          };
+
+          const getImgAttr2 = (selector: string, attr: string) => {
+            const el = $(selector);
+            return el.attr(attr) ?? '';
+          };
+          // console.log('game HTML:', newContent); // 전체 HTML 소스 출력
+
+          return {
+            awayPitcher: getText('.team.away .today-pitcher p'),
+            homePitcher: getText('.team.home .today-pitcher p'),
+            broadimage: `https:${getImgAttr('.top li:nth-child(2) img', 'src')}`,
+            stime:
+              game.querySelector('.top li:nth-child(3)')?.textContent?.trim() ??
+              '',
+            homePitcherImg: `https:${getImgAttr2('.tbl-pitcher tbody tr:first-child td.pitcher .player-img img.team', 'src')}`,
+            awayPitcherImg: `https:${getImgAttr2('.tbl-pitcher tbody tr:nth-child(2) td.pitcher .player-img img.team', 'src')}`,
+            gameID: game.getAttribute('g_id') ?? undefined,
+          };
+        }, gameEl);
+        // games.push(gameData);
+        console.log(gameData);
+
+        // 대기
+        await new Promise((resolve) => setTimeout(resolve, 200));
+      }
+
+      return games;
+      // 이제 클릭 돌면서 선수 이미지 받아와
+    } catch (error) {
+      console.error(error);
+    } finally {
+      await browser.close();
+    }
+  }
 }
 
 // https://www.koreabaseball.com/ws/Main.asmx/GetKboGameList

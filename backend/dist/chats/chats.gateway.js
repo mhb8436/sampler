@@ -30,7 +30,7 @@ let ChatsGateway = class ChatsGateway {
         console.log('WebSocket Gateway initialized');
     }
     broadcastMessage(roomId, message) {
-        console.log("boardcastMessage ", message);
+        console.log('boardcastMessage ', message);
         this.server.to(`room_${roomId}`).emit('message', message);
     }
     async handleConnection(client) {
@@ -61,7 +61,7 @@ let ChatsGateway = class ChatsGateway {
     async handleJoinRoom(client, data) {
         const parsedData = typeof data === 'string' ? JSON.parse(data) : data;
         const chatRoomId = parsedData.chatRoomId;
-        console.log("joinRoom", parsedData, chatRoomId, client.user);
+        console.log('joinRoom', parsedData, chatRoomId, client.user);
         client.join(`room_${chatRoomId}`);
         await this.chatsService.joinRoom(client.user.sub, chatRoomId);
         client

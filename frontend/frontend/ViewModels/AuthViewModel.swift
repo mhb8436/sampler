@@ -6,11 +6,13 @@ class AuthViewModel: ObservableObject {
     @Published var isLoggedIn = false
     @Published var loginError: String?
     @Published var signupError: String?
+    @Published var role : String?
 
     private let tokenKey = "jwt_token"
 
     init() {
-        // 앱 실행 시 토큰 불러오기
+       
+        // 앱 실행 시 토큰 불러오기\
         if let savedToken = UserDefaults.standard.string(forKey: tokenKey) {
             self.token = savedToken
             self.isLoggedIn = true

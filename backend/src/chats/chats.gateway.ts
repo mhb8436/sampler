@@ -20,7 +20,7 @@ export class ChatsGateway
   implements OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit
 {
   @WebSocketServer()
-  server: Server;
+  server: Server; // socket.io
 
   constructor(
     private jwtService: JwtService,
@@ -34,7 +34,7 @@ export class ChatsGateway
 
   // 메시지 브로드캐스팅을 위한 메서드
   broadcastMessage(roomId: number, message: any) {
-    console.log("boardcastMessage ", message);
+    console.log('boardcastMessage ', message);
     this.server.to(`room_${roomId}`).emit('message', message);
   }
 
@@ -50,13 +50,13 @@ export class ChatsGateway
     }
     try {
       const payload = this.jwtService.verify(token);
-      (client as any).user = payload;
+      (client as any).user = payload; // { sub: userId, nickname , email}
 
       const rooms = await this.chatsService.getRooms();
       console.log(payload);
       rooms.forEach((room) => {
         if (room.users.some((user) => user.id === payload.sub)) {
-          client.join(`room_${room.id}`);
+          client.join(`room_${room.id}`); // room_1
         }
       });
     } catch (e) {
@@ -79,8 +79,8 @@ export class ChatsGateway
   ) {
     const parsedData = typeof data === 'string' ? JSON.parse(data) : data;
     const chatRoomId = parsedData.chatRoomId;
-    
-    console.log("joinRoom", parsedData, chatRoomId, (client as any).user);
+
+    console.log('joinRoom', parsedData, chatRoomId, (client as any).user);
 
     client.join(`room_${chatRoomId}`);
     await this.chatsService.joinRoom((client as any).user.sub, chatRoomId);

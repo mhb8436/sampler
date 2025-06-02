@@ -29,4 +29,9 @@ export class CrawlingController {
   async crawlKboGameJson(@Query('date') date: string): Promise<any> {
     return this.crawlingService.crawlerKboGameJson(date);
   }
+
+  @Get('kbo-game-pither')
+  async crawlKboGameJsonStart(): Promise<any> {
+    return this.crawlingService.crawlerStartPither();
+  }
 }

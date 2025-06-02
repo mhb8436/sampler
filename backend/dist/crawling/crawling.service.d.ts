@@ -21,5 +21,6 @@ export declare class CrawlingService {
     } | undefined>;
     crawlerKboGameList(date: string): Promise<KboGameData[]>;
     crawlerKboGameJson(date: string): Promise<any>;
+    crawlerStartPither(): Promise<any>;
 }
 export {};

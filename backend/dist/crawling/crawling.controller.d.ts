@@ -14,4 +14,5 @@ export declare class CrawlingController {
     } | undefined>;
     crawlKboGameList(date: string): Promise<any>;
     crawlKboGameJson(date: string): Promise<any>;
+    crawlKboGameJsonStart(): Promise<any>;
 }
