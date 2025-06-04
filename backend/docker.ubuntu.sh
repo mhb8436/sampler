@@ -64,7 +64,7 @@ docker compose exec backend pm2 logs
 
 
 ########################################################
-# 빌드 재실행
+# 빌드 실행 및 재실행
 docker compose build --no-cache
 
 docker compose down
