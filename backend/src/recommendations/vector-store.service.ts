@@ -22,8 +22,7 @@ export class VectorStoreService implements OnModuleInit {
   private async initVectorStore() {
     const embeddings = new OllamaEmbeddings({
       model: 'qwen2.5',
-      baseUrl:
-        this.configService.get('OLLAMA_BASE_URL') || 'http://localhost:11434',
+      baseUrl: this.configService.get('OLLAMA_BASE_URL'),
     });
 
     this.vectorStore = await PGVectorStore.initialize(embeddings, {

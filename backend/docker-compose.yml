@@ -26,12 +26,11 @@ services:
       - NODE_ENV=production
       - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
       - PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
-      - OLLAMA_BASE_URL=http://ollama:11434
+
     depends_on:
       postgres:
         condition: service_healthy
-      ollama:
-        condition: service_started
+
     networks:
       - app-network
     healthcheck:
@@ -40,26 +39,6 @@ services:
       timeout: 5s
       retries: 3
       start_period: 30s
-
-  ollama:
-    image: ollama/ollama:latest
-    ports:
-      - '11434:11434'
-    volumes:
-      - ollama_data:/root/.ollama
-    networks:
-      - app-network
-    environment:
-      - OLLAMA_HOST=0.0.0.0
-    restart: unless-stopped
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
-    # GPU가 없는 경우 위의 deploy 섹션을 주석처리하세요
 
   postgres:
     image: pgvector/pgvector:pg16
@@ -88,7 +67,6 @@ services:
 
 volumes:
   postgres_data:
-  ollama_data:
 
 networks:
   app-network:
