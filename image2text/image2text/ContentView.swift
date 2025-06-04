@@ -21,7 +21,6 @@ struct ContentView: View {
     @State private var recognizedTexts: [RecognizedText] = []
     @State private var translatedTexts: [TranslatedText] = []
     @State private var showOverlay: Bool = false
-    @State private var showImagePicker: Bool = false
     @State private var processedImage: UIImage? // OCR 처리된 이미지를 저장
     @State private var showTranslation: Bool = false
     @State private var sourceLanguage: Locale.Language = Locale.Language(identifier: "ko")
@@ -233,19 +232,6 @@ struct ContentView: View {
             .background(Color(.systemGray6))
             .cornerRadius(12)
             .padding()
-        }
-        .sheet(isPresented: $showImagePicker) {
-            ImagePicker(image: Binding(
-                get: { cameraViewModel.capturedImage ?? UIImage() },
-                set: {
-                    cameraViewModel.capturedImage = $0
-                    processedImage = nil // 새 이미지 선택 시 처리된 이미지 초기화
-                    recognizedTexts = []
-                    translatedTexts = []
-                    showOverlay = false
-                    showTranslation = false
-                }
-            ))
         }
         // TranslationSession을 위한 translationTask modifier 추가
         .translationTask(translationConfiguration) { session in
@@ -465,47 +451,6 @@ struct ContentView: View {
         translatedTexts = []
         showOverlay = false
         showTranslation = false
-    }
-}
-
-struct ImagePicker: UIViewControllerRepresentable {
-    @Binding var image: UIImage
-    @Environment(\.presentationMode) var presentationMode
-    
-    func makeUIViewController(context: Context) -> PHPickerViewController {
-        var config = PHPickerConfiguration()
-        config.filter = .images
-        let picker = PHPickerViewController(configuration: config)
-        picker.delegate = context.coordinator
-        return picker
-    }
-    
-    func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {}
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-    
-    class Coordinator: NSObject, PHPickerViewControllerDelegate {
-        let parent: ImagePicker
-        
-        init(_ parent: ImagePicker) {
-            self.parent = parent
-        }
-        
-        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-            parent.presentationMode.wrappedValue.dismiss()
-            
-            guard let provider = results.first?.itemProvider else { return }
-            
-            if provider.canLoadObject(ofClass: UIImage.self) {
-                provider.loadObject(ofClass: UIImage.self) { image, _ in
-                    DispatchQueue.main.async {
-                        self.parent.image = image as? UIImage ?? UIImage()
-                    }
-                }
-            }
-        }
     }
 }
 
