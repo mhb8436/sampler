@@ -47,6 +47,12 @@ docker compose up -d
 # 컨테이너 중지
 docker compose down
 
+# 이미지 삭제
+docker rmi -f $(docker images -a -q)
+
+# 컨테이너 삭제
+docker rm -f $(docker ps -a -q)
+
 # 빌드 재실행 
 docker compose build --no-cache
 
@@ -55,3 +61,5 @@ docker compose exec backend pm2 monit
 
 # 로그 보기
 docker compose exec backend pm2 logs
+
+
