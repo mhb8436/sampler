@@ -160,11 +160,14 @@ struct ContentView: View {
                 }
                 .disabled(cameraViewModel.capturedImage == nil)
                 
+                // OCR 인식된 텍스트가 있으면 번역 버튼 표시
                 if !recognizedTexts.isEmpty {
+                    // 번역 버튼
                     Button(action: {
                         translateTexts()
                     }) {
                         HStack {
+                            // 번역 중 표시
                             if isTranslating {
                                 ProgressView()
                                     .scaleEffect(0.8)
@@ -180,7 +183,9 @@ struct ContentView: View {
                     .disabled(isTranslating)
                 }
                 
+                // 카메라 뷰모델에서 캡쳐된 이미지가 있으면 오버레이 표시 버튼 표시
                 if cameraViewModel.capturedImage != nil {
+                    // 오버레이 표시 버튼
                     Button(action: {
                         if !translatedTexts.isEmpty && showOverlay {
                             showTranslation.toggle()
@@ -197,7 +202,9 @@ struct ContentView: View {
                     }
                 }
                 
+                // OCR 인식된 이미지가 있으면 원본으로 버튼 표시
                 if processedImage != nil {
+                    // 원본으로 버튼
                     Button(action: {
                         cleanupMemory()
                     }) {
@@ -212,7 +219,9 @@ struct ContentView: View {
             }
             .padding()
             
+            // 스크롤 뷰
             ScrollView {
+                // 번역된 텍스트가 있으면 번역된 텍스트 표시
                 VStack(alignment: .leading, spacing: 8) {
                     if showTranslation && !translatedTexts.isEmpty {
                         ForEach(translatedTexts, id: \.id) { text in
@@ -257,8 +266,9 @@ struct ContentView: View {
     
     // 번역 함수 수정
     private func translateTexts() {
+        // OCR 인식된 텍스트가 있으면 번역 수행
         guard !recognizedTexts.isEmpty else { return }
-        
+        // 번역 중 표시
         isTranslating = true
         translatedTexts = []
         
@@ -329,26 +339,31 @@ struct ContentView: View {
             }
         }
     }
-    
+    // OCR 인식 함수
     private func recognizeText(from image: UIImage) {
         guard let cgImage = image.cgImage else { return }
         
         // 메모리 최적화: autoreleasepool 사용
         autoreleasepool {
+            // OCR 인식 요청 생성
             let requestHandler = VNImageRequestHandler(cgImage: cgImage, options: [:])
+            // OCR 인식 요청 생성
             let request = VNRecognizeTextRequest { request, error in
                 guard let observations = request.results as? [VNRecognizedTextObservation],
                       error == nil else {
                     return
                 }
-                
+                // OCR 인식 결과 처리
                 let recognizedTexts = observations.compactMap { observation -> RecognizedText? in
                     // 상위 3개의 인식 결과를 확인하고 신뢰도가 높은 결과 선택
                     let candidates = observation.topCandidates(3)
+                    // 신뢰도가 50% 이상인 결과만 사용
                     guard let topCandidate = candidates.first,
                           topCandidate.confidence > 0.5 else { return nil } // 신뢰도가 50% 이상인 결과만 사용
                     
+                    // 박스 좌표 변환
                     let boundingBox = observation.boundingBox
+                    // 박스 좌표 변환
                     let transformedBox = CGRect(
                         x: boundingBox.minX,
                         y: 1 - boundingBox.maxY,
@@ -377,10 +392,10 @@ struct ContentView: View {
                             width: image.size.width * scaleFactor,
                             height: image.size.height * scaleFactor
                         )
-                        
+                        // 이미지 컨텍스트 생성
                         UIGraphicsBeginImageContextWithOptions(scaledSize, false, 0.0)
                         image.draw(in: CGRect(origin: .zero, size: scaledSize))
-                        
+                        // 이미지 컨텍스트 생성
                         let context = UIGraphicsGetCurrentContext()
                         context?.setStrokeColor(UIColor.red.cgColor)
                         context?.setLineWidth(2.0)
@@ -395,11 +410,11 @@ struct ContentView: View {
                             )
                             context?.stroke(rect)
                         }
-                        
+                        // 이미지 컨텍스트 생성
                         if let processedImage = UIGraphicsGetImageFromCurrentImageContext() {
                             self.processedImage = processedImage
                         }
-                        
+                        // 이미지 컨텍스트 종료
                         UIGraphicsEndImageContext()
                     }
                 }
