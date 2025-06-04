@@ -82,6 +82,9 @@ cp docker-compose.example.yml docker-compose.yml
 # 빌드 재실행
 docker compose build --no-cache
 
+# 컨테이너 실행
+docker compose up -d
+
 # 컨테이너 내부의 PM2 모니터링
 docker compose exec backend pm2 monit
 
@@ -100,6 +103,9 @@ docker rmi -f $(docker images -a -q)
 
 # 빌드 재실행
 docker compose build --no-cache
+
+# 컨테이너 실행
+docker compose up -d
 
 # 컨테이너 내부의 PM2 모니터링
 docker compose exec backend pm2 monit
