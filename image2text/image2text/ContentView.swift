@@ -2,35 +2,44 @@ import SwiftUI
 import Vision
 import PhotosUI
 import Translation
-
+// OCR 인식된 텍스트를 저장하는 모델 
 struct RecognizedText: Identifiable {
     let id = UUID()
-    let string: String
-    let boundingBox: CGRect
+    let string: String // 인식된 텍스트
+    let boundingBox: CGRect // 인식된 텍스트의 박스 좌표
 }
 
+// 번역된 텍스트를 저장하는 모델
 struct TranslatedText: Identifiable {
     let id = UUID()
-    let originalText: String
-    let translatedText: String
-    let boundingBox: CGRect
+    let originalText: String // 원본 텍스트
+    let translatedText: String // 번역된 텍스트
+    let boundingBox: CGRect // 번역된 텍스트의 박스 좌표
 }
 
 struct ContentView: View {
+    // 카메라 뷰모델
     @StateObject private var cameraViewModel = CameraViewModel()
+    // OCR 인식된 텍스트를 저장하는 배열
     @State private var recognizedTexts: [RecognizedText] = []
+    // 번역된 텍스트를 저장하는 배열
     @State private var translatedTexts: [TranslatedText] = []
+    // 오버레이 표시 여부
     @State private var showOverlay: Bool = false
+    // OCR 처리된 이미지를 저장
     @State private var processedImage: UIImage? // OCR 처리된 이미지를 저장
-    @State private var showTranslation: Bool = false
-    @State private var sourceLanguage: Locale.Language = Locale.Language(identifier: "ko")
-    @State private var targetLanguage: Locale.Language = Locale.Language(identifier: "en")
-    @State private var isTranslating: Bool = false
+    @State private var showTranslation: Bool = false // 번역 표시 여부
+    @State private var sourceLanguage: Locale.Language = Locale.Language(identifier: "ko") // 원본 언어
+    @State private var targetLanguage: Locale.Language = Locale.Language(identifier: "en") // 번역 언어
+    @State private var isTranslating: Bool = false // 번역 중 여부
     @State private var translationConfiguration: TranslationSession.Configuration?
-    
-    var body: some View {
+
+
+    // 뷰 본문
+    var body: some View
         VStack {
             ZStack {
+                // 카메라에서 캡쳐된 이미지
                 if let image = processedImage ?? cameraViewModel.capturedImage {
                     Image(uiImage: image)
                         .resizable()
@@ -39,20 +48,23 @@ struct ContentView: View {
                         .cornerRadius(12)
                         .padding()
                 } else {
+                    // 카메라 뷰 모델을 사용하여 카메라 뷰 표시
                     CameraView(viewModel: cameraViewModel)
                         .frame(height: 300)
                         .cornerRadius(12)
                         .padding()
                 }
-                
+                // 카메라 뷰모델에서 캡쳐된 이미지가 있으면 오버레이 표시
                 if showOverlay, let image = processedImage ?? cameraViewModel.capturedImage {
                     GeometryReader { geometry in
                         ZStack {
+                            // 이미지 표시 
                             Image(uiImage: image)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: geometry.size.width)
-                            
+                            // 번역이 되었으면 번역된 텍스트 그리기 
+
                             if showTranslation {
                                 ForEach(translatedTexts, id: \.id) { text in
                                     Text(text.translatedText)
@@ -65,6 +77,7 @@ struct ContentView: View {
                                         )
                                 }
                             } else {
+                                // 아니면 OCR 인식된 텍스트 그리기 
                                 ForEach(recognizedTexts, id: \.id) { text in
                                     Text(text.string)
                                         .font(.system(size: 14, weight: .medium))
@@ -82,6 +95,7 @@ struct ContentView: View {
             }
             
             // 언어 선택 UI
+            // OCR 인식된 텍스트가 있으면 언어 선택 UI 표시
             if !recognizedTexts.isEmpty {
                 VStack {
                     Text("번역 언어 설정")
@@ -117,20 +131,22 @@ struct ContentView: View {
             }
 
             HStack {
-                
+                // OCR 인식 버튼
                 Button(action: {
-                    
+                    // 카메라 뷰모델에서 캡쳐된 이미지가 있으면 이미지 처리
                     if let image = cameraViewModel.capturedImage {
+                        // 메모리 최적화: autoreleasepool 사용
                         autoreleasepool {
-                            if let resizedImage = resizeImage(image, targetSize: CGSize(width: 1024, height: 1024)),
-                               let processedImage = preprocessImage(resizedImage) {
+                            // 이미지 크기 조정 시도
+                            let imageToProcess = resizeImage(image, targetSize: CGSize(width: 1024, height: 1024)) ?? image
+
+                            // 전처리 시도
+                            if let processedImage = preprocessImage(imageToProcess) {
+                                // 이미지 처리
                                 recognizeText(from: processedImage)
                             } else {
-                                if let resizedOriginal = resizeImage(image, targetSize: CGSize(width: 1024, height: 1024)) {
-                                    recognizeText(from: resizedOriginal)
-                                } else {
-                                    recognizeText(from: image)
-                                }
+                                // 이미지 처리
+                                recognizeText(from: imageToProcess)
                             }
                         }
                     }
