@@ -54,6 +54,16 @@ export class CrawlingService {
   async crawlerKboGameList(date: string): Promise<KboGameData[]> {
     const browser = await puppeteer.launch({
       headless: true,
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-accelerated-2d-canvas',
+        '--no-first-run',
+        '--no-zygote',
+        '--disable-gpu',
+      ],
     });
     try {
       const page = await browser.newPage();
@@ -107,7 +117,17 @@ export class CrawlingService {
     const URL = 'https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx';
 
     const browser = await puppeteer.launch({
-      headless: false,
+      headless: process.env.NODE_ENV === 'production',
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-accelerated-2d-canvas',
+        '--no-first-run',
+        '--no-zygote',
+        '--disable-gpu',
+      ],
     });
 
     // 게임 아이디만 따로 추려

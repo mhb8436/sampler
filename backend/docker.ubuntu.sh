@@ -113,3 +113,8 @@ docker compose exec backend pm2 monit
 # 로그 보기
 docker compose exec backend pm2 logs
 
+# 데이터베이스 데이터 삭제
+docker volume rm backend_postgres_data
+
+# 컨테이너 중지 후 데이터 삭제
+docker compose down -v

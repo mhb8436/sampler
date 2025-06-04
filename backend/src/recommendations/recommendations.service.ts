@@ -63,8 +63,11 @@ export class RecommendationsService implements OnModuleInit {
   }
 
   private createOllamaModel(modelName: string = 'qwen2.5') {
+    const baseUrl =
+      this.configService.get('OLLAMA_BASE_URL') || 'http://localhost:11434';
+
     return new Ollama({
-      baseUrl: 'http://localhost:11434', // 임시로 하드코딩
+      baseUrl: baseUrl,
       model: modelName,
     });
   }
