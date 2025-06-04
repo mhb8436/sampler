@@ -63,3 +63,47 @@ docker compose exec backend pm2 monit
 docker compose exec backend pm2 logs
 
 
+########################################################
+# 빌드 재실행
+docker compose build --no-cache
+
+docker compose down
+
+# 소스 재배포
+git pull origin main
+
+# 강제로 로컬에 덮어쓰기 
+git fetch origin
+git reset --hard origin/main
+
+# docker-compose 파일 복사
+cp docker-compose.example.yml docker-compose.yml
+
+# 빌드 재실행
+docker compose build --no-cache
+
+# 컨테이너 내부의 PM2 모니터링
+docker compose exec backend pm2 monit
+
+# 로그 보기
+docker compose exec backend pm2 logs
+
+
+########################################################
+# 빌드 재실행 해도 해도 안되는 경우
+
+# 컨테이너 삭제
+docker rm -f $(docker ps -a -q)
+
+# 이미지 삭제
+docker rmi -f $(docker images -a -q)
+
+# 빌드 재실행
+docker compose build --no-cache
+
+# 컨테이너 내부의 PM2 모니터링
+docker compose exec backend pm2 monit
+
+# 로그 보기
+docker compose exec backend pm2 logs
+
