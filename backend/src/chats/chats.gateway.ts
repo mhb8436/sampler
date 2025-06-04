@@ -42,7 +42,7 @@ export class ChatsGateway
     // JWT 인증: access_token 쿼리로 전달
     // console.log(client.handshake.headers.authorization);
     const bearerToken = client.handshake.headers.authorization;
-    const token = bearerToken?.split(' ')[1];
+    const token = bearerToken?.split(' ')[1]; // Beaerer xxxx
     // console.log(token);
     if (!token) {
       client.disconnect();

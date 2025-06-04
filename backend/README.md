@@ -233,3 +233,13 @@ curl -X POST http://localhost:3030/recommendations \
 curl "http://localhost:3030/recommendations?query=강남구에서%20고급스러운%20일식당%20추천해주세요"
 
 ```
+
+## Docker Deploy
+
+```bash
+cp docker-compose.yml .
+cp Dockerfile .
+cp ecosystem.config.js .
+cp nginx.conf .
+cp start.sh .
+```
