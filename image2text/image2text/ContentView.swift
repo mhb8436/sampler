@@ -2,7 +2,8 @@ import SwiftUI
 import Vision
 import PhotosUI
 import Translation
-// OCR 인식된 텍스트를 저장하는 모델 
+
+// OCR 인식된 텍스트를 저장하는 모델
 struct RecognizedText: Identifiable {
     let id = UUID()
     let string: String // 인식된 텍스트
@@ -36,7 +37,7 @@ struct ContentView: View {
 
 
     // 뷰 본문
-    var body: some View
+    var body: some View {
         VStack {
             ZStack {
                 // 카메라에서 캡쳐된 이미지
