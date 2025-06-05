@@ -16,32 +16,19 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    expose:
-      - '3000'
+    network_mode: host # Ubuntu에서 호스트 네트워크 직접 사용
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/sampler?schema=public
+      - DATABASE_URL=postgresql://postgres:postgres@localhost:5432/sampler?schema=public
       - JWT_SECRET=your_jwt_secret_here
       - AZURE_STORAGE_CONNECTION_STRING=your_azure_storage_connection_string_here
       - AZURE_STORAGE_CONTAINER_NAME=your_azure_storage_container_name_here
       - NODE_ENV=production
       - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
       - PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
-      - OLLAMA_BASE_URL=http://host.docker.internal:11434 # ollama 서버 주소
-
-    extra_hosts:
-      - 'host.docker.internal:host-gateway' # 호스트 네트워크 사용으로 localhost:11434 직접 접근
+      - HOST_SERVICE_URL=http://localhost:11434 # 직접 localhost 사용
     depends_on:
       postgres:
         condition: service_healthy
-
-    networks:
-      - app-network
-    healthcheck:
-      test: ['CMD', 'wget', '--spider', 'http://localhost:3000/health']
-      interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 30s
 
   postgres:
     image: pgvector/pgvector:pg16
@@ -61,12 +48,6 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-    command:
-      - 'postgres'
-      - '-c'
-      - 'max_connections=100'
-      - '-c'
-      - 'shared_buffers=256MB'
 
 volumes:
   postgres_data:
