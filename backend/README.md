@@ -148,7 +148,7 @@ curl -X POST http://localhost:3030/recommendations \
         "city": "서울",
         "district": "강남구"
       },
-      "features": ["오마카세", "예약필수", "데이트"]
+      "features": ["오마카세", "예약필수", "데이트", "떡복이", ""]
     }
   }'
 

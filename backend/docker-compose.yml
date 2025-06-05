@@ -26,12 +26,12 @@ services:
       - NODE_ENV=production
       - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
       - PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
-      - OLLAMA_BASE_URL=http://host.docker.internal:11434 # ollama 서버 주소
+      - OLLAMA_BASE_URL=http://ollama:11434 # ollama 서비스 주소
 
-    extra_hosts:
-      - 'host.docker.internal:host-gateway' # 호스트 네트워크 사용으로 localhost:11434 직접 접근
     depends_on:
       postgres:
+        condition: service_healthy
+      ollama:
         condition: service_healthy
 
     networks:
@@ -42,6 +42,38 @@ services:
       timeout: 5s
       retries: 3
       start_period: 30s
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - '11434:11434'
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - app-network
+    healthcheck:
+      test: ['CMD', 'ollama', 'list']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+    restart: unless-stopped
+
+  ollama-init:
+    image: ollama/ollama:latest
+    depends_on:
+      ollama:
+        condition: service_healthy
+    networks:
+      - app-network
+    entrypoint: ['/bin/sh', '-c']
+    command: >
+      "echo 'Waiting for Ollama to be ready...' &&
+       sleep 10 &&
+       echo 'Pulling qwen3:1.7b model...' &&
+       OLLAMA_HOST=http://ollama:11434 ollama pull qwen3:1.7b &&
+       echo 'Model download completed!'"
+    restart: 'no'
 
   postgres:
     image: pgvector/pgvector:pg16
@@ -70,6 +102,7 @@ services:
 
 volumes:
   postgres_data:
+  ollama_data:
 
 networks:
   app-network:
