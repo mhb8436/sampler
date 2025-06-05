@@ -255,7 +255,7 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o 
 # Docker 리포지토리 설정
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null 
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # Docker 엔진 설치
 sudo apt-get update
@@ -277,6 +277,7 @@ sudo usermod -aG docker $USER
 # 변경사항 적용을 위해 로그아웃 후 다시 로그인하거나 다음 명령어 실행
 newgrp docker
 ```
+
 ## Docker Deploy
 
 ```bash
@@ -295,7 +296,7 @@ docker compose down
 # 소스 재배포
 git pull origin main
 
-# 강제로 로컬에 덮어쓰기 
+# 강제로 로컬에 덮어쓰기
 git fetch origin
 git reset --hard origin/main
 
@@ -341,5 +342,27 @@ docker volume rm backend_postgres_data
 
 # 컨테이너 중지 후 데이터 삭제
 docker compose down -v
+
+```
+
+## ollama install in ubuntu
+
+```
+# ollama install
+curl -fsSL https://ollama.com/install.sh | sh
+
+# ollama qwen3:1.7b download
+ollama pull qwen3:1.7b
+
+# edit ollama service
+sudo vi /etc/systemd/system/ollama.service
+
+# [service] bottom add
+Environment="OLLAMA_HOST=0.0.0.0:11434"
+
+# ollama daemon-restart
+sudo systemctl daemon-reload
+sudo systemctl restart ollama.service
+
 
 ```
