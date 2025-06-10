@@ -82,6 +82,16 @@ let CrawlingService = class CrawlingService {
     async crawlerKboGameList(date) {
         const browser = await puppeteer.launch({
             headless: true,
+            executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
+            args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--disable-accelerated-2d-canvas',
+                '--no-first-run',
+                '--no-zygote',
+                '--disable-gpu',
+            ],
         });
         try {
             const page = await browser.newPage();
@@ -122,7 +132,17 @@ let CrawlingService = class CrawlingService {
         console.log('crawlerStartPither');
         const URL = 'https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx';
         const browser = await puppeteer.launch({
-            headless: false,
+            headless: process.env.NODE_ENV === 'production',
+            executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
+            args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--disable-accelerated-2d-canvas',
+                '--no-first-run',
+                '--no-zygote',
+                '--disable-gpu',
+            ],
         });
         const gameIds = [];
         try {

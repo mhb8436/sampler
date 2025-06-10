@@ -65,7 +65,7 @@ let RecommendationsService = class RecommendationsService {
     }
     createOllamaModel(modelName = 'qwen2.5') {
         return new ollama_1.Ollama({
-            baseUrl: 'http://localhost:11434',
+            baseUrl: this.configService.get('OLLAMA_BASE_URL'),
             model: modelName,
         });
     }
